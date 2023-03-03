@@ -1,0 +1,122 @@
+.nav-wrapper {
+  position: sticky;
+  top: 5%;
+  width: 10vw;
+  height: 100%;
+}
+.nav-wrapper .nav {
+  width: 75%;
+  height: 90%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1f1f1f;
+  box-shadow: -10px -10px 30px #313131, 5px 10px 30px #000000;
+}
+.nav-wrapper .nav .nav-content {
+  height: 90%;
+}
+.nav-wrapper .nav ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+}
+.nav-wrapper .nav ul .nav-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+}
+.nav-wrapper .nav ul .nav-item > div {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.nav-wrapper .nav ul .nav-item#profile div {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav-wrapper .nav ul .nav-item#profile img {
+  border-radius: 50px;
+}
+.nav-wrapper .nav ul .slider {
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  translate: 0px 0px;
+  transition: translate 500ms ease;
+}
+.nav-wrapper .nav ul .slider div {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px var(--dark-bg), 0px 0px 30px #000000;
+  transition: border-radius 500ms ease;
+}
+.nav-wrapper .nav ul #profile.selected ~ .slider div {
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+}
+
+@media screen and (max-width: 1024px) {
+  #root {
+    overflow: hidden;
+  }
+  .main-wrapper .content-wrapper {
+    background: var(--dark-bg);
+    transition: transform 200ms ease;
+  }
+  .main-wrapper.nav-active .content-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #00000083;
+    z-index: 2;
+  }
+  .main-wrapper.nav-active .content-wrapper {
+    transform: translateX(150px) perspective(1200px);
+  }
+  .nav-wrapper {
+    transform: translateX(0px) perspective(1200px) translateZ(-200px)
+      rotateY(0deg);
+    position: fixed;
+    width: 145px;
+    height: 90vh;
+    top: 0%;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+  .main-wrapper.nav-active .nav-wrapper {
+    transform: translateX(0px) perspective(1200px) translateZ(0px) rotateY(0deg);
+  }
+  .nav-wrapper.active {
+    left: 0vw;
+  }
+  .nav-wrapper .nav ul .nav-item > div {
+    width: 100%;
+  }
+  .nav-wrapper .nav ul .nav-item > div img {
+    width: 50px !important;
+  }
+  .nav-wrapper .nav ul .nav-item.slider div {
+    border: none !important;
+    box-shadow: none;
+  }
+  .nav-wrapper .nav ul .nav-item {
+    width: 70px;
+    height: 70px;
+  }
+}

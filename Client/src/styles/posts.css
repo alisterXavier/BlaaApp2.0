@@ -1,0 +1,253 @@
+.posts-wrapper {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  min-height: 85vh;
+}
+.posts--default--wrapper .posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.posts-wrapper .post {
+  cursor: pointer;
+  width: 90%;
+  max-height: 400px;
+  overflow: hidden;
+  margin: 20px;
+  background-color: #1f1f1f;
+  transition: box-shadow 400ms ease;
+  box-shadow: var(--shadow);
+}
+.posts--masonry--wrapper .posts .post {
+  width: 30%;
+  max-height: 500px;
+}
+
+.userprofile {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.posts-wrapper .post .post-date,
+.post-wrapper .post-details .post-date,
+.post-wrapper .reply-details .reply-date {
+  font-size: 10px;
+}
+.posts-wrapper .post .post-content .post-content-image {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 170px;
+  width: 100%;
+  overflow: hidden;
+}
+.posts-wrapper .post .post-content .post-content-image figure,
+.post-wrapper .post-content .post-content-image figure,
+.post-wrapper .replies .reply .reply-content .reply-content-image figure {
+  position: relative;
+  height: 150px;
+}
+.more-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.685);
+}
+.more-images:hover {
+  background-color: rgba(0, 0, 0, 0.795);
+}
+.posts-wrapper .post .btns .like-reply-share li:hover svg,
+.post-wrapper .btns .like-reply-share li:hover svg {
+  fill: var(--accent);
+}
+.posts-wrapper .post .btns .like-reply-share li svg,
+.post-wrapper .btns .like-reply-share li svg {
+  cursor: pointer;
+}
+.posts-wrapper .post .btns .like-reply-share li .replies-count,
+.posts-wrapper .post .btns .like-reply-share li .likes-count,
+.post-wrapper .btns .like-reply-share li .likes-count,
+.post-wrapper .btns .like-reply-share li .replies-count {
+  font-size: 10px;
+}
+.post-wrapper {
+  position: fixed;
+  z-index: 10;
+  min-height: 300px;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none !important;
+  background-color: var(--dark-bg);
+  overflow: scroll;
+}
+.post-wrapper .cross {
+  position: fixed;
+  z-index: 1;
+  right: 5%;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  background-color: black;
+}
+.post-wrapper .post-content p {
+  min-height: 50px;
+}
+.post-wrapper .post-details figure {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.post-wrapper .post-content .post-content-image {
+  display: flex;
+  flex-wrap: wrap;
+}
+.post-wrapper .replies > .reply {
+  min-height: 200px;
+  width: 100%;
+  padding: 10px;
+  transition: background-color 200ms ease;
+}
+.post-wrapper .replies > .reply:hover {
+  background-color: rgba(54, 54, 54, 0.589);
+}
+.post-wrapper .reply-text-container .text-container {
+  position: relative;
+  width: 90%;
+  height: 100px;
+}
+.post-wrapper .reply-text-container .text-container::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(51, 51, 51, 0.705);
+  backdrop-filter: blur(10px);
+}
+.post-wrapper .reply-text-container textarea {
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  width: 95%;
+  height: 100%;
+}
+
+.reply-container {
+  position: fixed;
+  z-index: 2;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.619);
+}
+.reply-container .text-container {
+  position: relative;
+  width: 90%;
+}
+.reply-container .text-container::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(117, 117, 117, 0.158);
+  backdrop-filter: blur(10px);
+}
+.reply-container textarea {
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.reply-container .reply-cross {
+  width: 90%;
+  cursor: pointer;
+}
+.reply-container .display-images {
+  position: absolute;
+  left: auto;
+  right: 15%;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.reply-container .display-images .swiper {
+  width: 100%;
+  height: 100%;
+}
+.reply-container .display-images .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reply-container .display-images figure {
+  height: 100%;
+  overflow: hidden;
+}
+textarea {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100px;
+  padding: 20px !important;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1024px) {
+  .userprofile {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .posts-wrapper .post .post-content .post-content-image figure,
+  .post-wrapper .post-content .post-content-image figure,
+  .post-wrapper .replies .reply .reply-content .reply-content-image figure {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .more-images {
+    width: 100px;
+    height: 100px;
+  }
+  .reply-container .display-images {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    top: auto;
+    right: auto;
+    bottom: 0%;
+    width: 100%;
+    height: 135px;
+  }
+  .reply-container .display-images figure {
+    height: 100%;
+    overflow: hidden;
+  }
+}

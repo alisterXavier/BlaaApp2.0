@@ -1,0 +1,11 @@
+$delay: 10ms
+$y-axis: 0px
+
+@for $var from 1 through 6
+    .nav-wrapper .nav ul .nav-item:not(.slider):nth-child(#{$var}) 
+        animation-delay: $delay
+    $delay: $delay + 100ms
+
+    .nav-wrapper .nav ul .nav-item:nth-child(#{$var}).selected ~ .slider
+        translate: 0px $y-axis
+    $y-axis: $y-axis + 100px

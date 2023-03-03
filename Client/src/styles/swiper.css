@@ -1,0 +1,16 @@
+.bigger-image .swiper {
+    background-color: rgba(0, 0, 0, 0.844);
+}
+.bigger-image .swiper figure{
+    max-width: 90vw;
+    height: 90vh;
+}
+.bigger-image .swiper-pagination .swiper-pagination-bullet{
+    background-color: aqua;
+}
+@media screen and (max-width: 1024px) {
+    .bigger-image .swiper figure{
+        max-width: 70vw;
+        height: 20vh;
+    }
+}

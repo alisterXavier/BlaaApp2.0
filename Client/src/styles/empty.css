@@ -1,0 +1,13 @@
+.empty {
+    width: 80%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .empty h1 {
+    width: 300px;
+    height: 200px;
+    font-size: 50px;
+    letter-spacing: 6px;
+  }

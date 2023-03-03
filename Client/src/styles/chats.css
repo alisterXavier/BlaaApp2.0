@@ -1,0 +1,202 @@
+.chat-wrapper {
+  width: 90vw;
+  height: 100vh;
+  padding: 40px 20px 30px 20px;
+}
+.chat-wrapper .chat-conversation {
+  width: 80%;
+}
+.chat-wrapper .chats {
+  width: 20%;
+  overflow: scroll;
+  padding: 0px 10px;
+}
+.chat-wrapper .chats .chat-list {
+  background-color: var(--dark-bg);
+  box-shadow: -2px -2px 30px #313131, 2px 2px 30px #000000;
+}
+.chat-wrapper .chats .chat-list > div {
+  background-color: var(--dark-bg);
+  box-shadow: none;
+}
+.chat-wrapper .chats .chat-list figure {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.chat-wrapper .chats .chat-list > div p {
+  width: 100px;
+  white-space: nowrap;
+  text-align: left;
+  overflow: hidden;
+}
+.chat-conversation .conversation-name {
+  height: 10%;
+  background-color: var(--dark-bg);
+  box-shadow: -10px -10px 20px #313131, 10px 10px 20px #000000;
+}
+.chat-conversation .conversation-name .chat-options {
+  position: relative;
+}
+.chat-conversation .conversation-name .chat-options .options {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  font-size: 12px;
+  right: 100%;
+  width: 150px;
+  background-color: var(--dark-bg);
+  box-shadow: var(--shadow);
+}
+.chat-conversation .conversation-name .chat-options .options.active {
+  display: block;
+}
+.chat-conversation .conversation-name .chat-options .options div {
+  padding: 5px;
+  min-height: 40px;
+}
+.chat-conversation .texts {
+  width: 100%;
+  height: 73%;
+  overflow: scroll;
+}
+.chat-conversation .texts .text {
+  width: 80%;
+}
+.chat-conversation .texts .text .inner-text {
+  position: relative;
+  border-radius: 9px 9px 0px 9px;
+  background-color: var(--dark-bg);
+  box-shadow: var(--shadow);
+}
+.chat-conversation .texts .text .receive .inner-text {
+  border-radius: 9px 9px 9px 0px;
+}
+.text .inner-text .date {
+  font-size: xx-small;
+}
+.chat-conversation .texts .text .inner-text .text-content {
+  white-space: pre-line;
+}
+.chat-conversation .texts .text .inner-text figure {
+  width: 200px;
+}
+.chat-conversation .texts .text .from {
+  font-size: 10px;
+  opacity: 0.6;
+}
+.chat-conversation .message-wrapper {
+  min-height: 100%;
+}
+.chat-conversation .message-wrapper div {
+  background-color: #242424;
+}
+.chat-conversation .message-wrapper textarea {
+  width: 95%;
+  height: 100%;
+}
+.upload-file {
+  width: 5%;
+}
+.chat-conversation .message-wrapper .btn {
+  border: none;
+}
+.chat-conversation .message-box-container {
+  width: 80%;
+  height: 15%;
+  background-color: var(--dark-bg);
+  box-shadow: var(--shadow);
+}
+.send-message-wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-bg);
+}
+.send-message-wrapper .cross {
+  height: 50px;
+}
+.send-message-wrapper .send-message {
+  background-color: #242424;
+  width: 500px;
+  height: 500px;
+}
+.send-message-wrapper .send-message input {
+  width: 100%;
+}
+.send-message-wrapper .send-message .selected-users {
+  height: 50px;
+}
+.send-message-wrapper .results-wrapper {
+  min-height: 60%;
+  max-height: 60%;
+  overflow: scroll;
+}
+.send-message-wrapper .results-wrapper > div {
+  width: 100%;
+  height: 100%;
+}
+.send-message-wrapper .results-wrapper .user figure {
+  width: 50px;
+  height: 50px;
+}
+.send-message-wrapper .results-wrapper .user figure img {
+  width: 100%;
+  height: 100%;
+}
+.send-message-wrapper .results-wrapper .user p {
+  width: 100px;
+}
+
+@media screen and (max-width: 1024px) {
+  .chat-wrapper{
+    padding: 0px;
+    width: 100vw;
+  }
+  .chat-wrapper .chats {
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    transition: right 200ms ease;
+  }
+  .chat-wrapper.select-conversation-active .chats {
+    right: 0;
+  }
+  .chat-wrapper .chats .chat-list {
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+  }
+  .chat-wrapper .chats .chat-list > div p {
+    width: 80%;
+  }
+  .chat-wrapper .chat-conversation{
+    width: 100%;
+  }
+  .chat-wrapper.select-conversation-active .chat-conversation::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111111d5;
+  }
+  .chat-conversation .texts{
+    height: 70%;
+  }
+  .chat-conversation .message-box-container{
+    width: 100%;
+    height: 10%;
+  }
+}
