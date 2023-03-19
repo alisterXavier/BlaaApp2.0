@@ -244,9 +244,10 @@ const Profile = () => {
   const optionToggle = () => {
     optionsRef.current?.classList.toggle("optons-active");
   };
+
   const getUser = () => {
     axios
-      .post(`${import.meta.env.VITE_API}/user/get-users?user=${user}`)
+      .post(`${import.meta.env.VITE_SERVER_API}/user/get-users?user=${user}`)
       .then((res) => {
         setUserProfile(res.data);
       });
