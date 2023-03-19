@@ -33,7 +33,7 @@ export const UploadImageToStorage = async (img, type) => {
 export const like = (uid, pid) => {
   if (auth.currentUser) {
     axios
-      .post(`${import.meta.env.VITE_API}/likes/like`, { uid: uid, pid: pid })
+      .post(`${import.meta.env.VITE_SERVER_API}/likes/like`, { uid: uid, pid: pid })
       .then((res) => {});
   } else {
     handleNotLogInUserClick();
@@ -55,7 +55,7 @@ export const sendReply = async (data, images) => {
           })
         );
       }
-      axios.post(`${import.meta.env.VITE_API}/replies/send-reply`, data).then((res) => {});
+      axios.post(`${import.meta.env.VITE_SERVER_API}/replies/send-reply`, data).then((res) => {});
     }
   } else handleNotLogInUserClick();
 };
@@ -75,7 +75,7 @@ export const sendPost = async (data, images) => {
           })
         );
       }
-      axios.post(`${import.meta.env.VITE_API}/post/new-post`, data).then((res) => {});
+      axios.post(`${import.meta.env.VITE_SERVER_API}/post/new-post`, data).then((res) => {});
     }
   } else handleNotLogInUserClick();
 };
@@ -84,7 +84,7 @@ export const sendPost = async (data, images) => {
 export const messageUser = async (userList, chatId) => {
   if (auth.currentUser) {
     await axios
-      .post(`${import.meta.env.VITE_API}/chats/send-message`, {
+      .post(`${import.meta.env.VITE_SERVER_API}/chats/send-message`, {
         cuid: auth.currentUser?.uid,
         uidList: userList.map((user) => user.uid),
         chatId: chatId,

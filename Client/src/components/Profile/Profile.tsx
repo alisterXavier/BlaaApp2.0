@@ -60,7 +60,7 @@ const ProfileHeader = ({
 
   const followUser = () => {
     axios
-      .post(`${import.meta.env.VITE_API}/user/follow`, {
+      .post(`${import.meta.env.VITE_SERVER_API}/user/follow`, {
         uid: userProfile?.uid,
         cuid: currentUserProfile.uid,
       })
@@ -69,7 +69,7 @@ const ProfileHeader = ({
 
   const unFollowUser = () => {
     axios
-      .post(`${import.meta.env.VITE_API}/user/unfollow`, {
+      .post(`${import.meta.env.VITE_SERVER_API}/user/unfollow`, {
         uid: userProfile?.uid,
         cuid: currentUserProfile.uid,
       })

@@ -29,7 +29,7 @@ export const Users = ({
   const getusers = () => {
     axios
       .post(
-        `${import.meta.env.VITE_API}/${
+        `${import.meta.env.VITE_SERVER_API}/${
           type && type === "follow"
             ? `user/get-users`
             : `chats/get-users?user=${searchContent}`

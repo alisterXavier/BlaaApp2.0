@@ -154,7 +154,7 @@ const Settings = () => {
           res.forEach(async (data) => {
             const chatData = data.data();
             if (chatData.userDetails.length > 2) {
-              axios.post(`${import.meta.env.VITE_API}/chats/exit-conversation`, {
+              axios.post(`${import.meta.env.VITE_SERVER_API}/chats/exit-conversation`, {
                 chatsId: chatData.chatId,
                 uid: user.uid,
               });

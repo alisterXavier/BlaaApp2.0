@@ -154,7 +154,7 @@ const Conversation = ({
           username: userProfile.username,
         },
       };
-      axios.post(`${import.meta.env.VITE_API}/chats/text`, data).then((res) => {
+      axios.post(`${import.meta.env.VITE_SERVER_API}/chats/text`, data).then((res) => {
         setContent("");
       });
     }
@@ -167,7 +167,7 @@ const Conversation = ({
         chatId: chatConversation.chatId,
       };
       if (chatConversation.userDetails.length > 2) {
-        axios.post(`${import.meta.env.VITE_API}/chats/exit-conversation`, data).then((res) => {
+        axios.post(`${import.meta.env.VITE_SERVER_API}/chats/exit-conversation`, data).then((res) => {
           setChatId(undefined);
           toastFn("Conversation deleted successfully", "succcess");
         });
