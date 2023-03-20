@@ -8,7 +8,7 @@ const ChatReducer = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    resetChat: (state, action) => {
+    resetChat: () => {
       return [];
     },
     ChatInit: (state, action) => {

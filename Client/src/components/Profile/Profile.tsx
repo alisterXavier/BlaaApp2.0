@@ -230,7 +230,7 @@ const Profile = () => {
   );
   const posts = useSelector(
     (state: { content: ContentsInterface }) =>
-      user && getPosts(filterByUserId(state.content, user))
+      user ? getPosts(filterByUserId(state.content, user)) : undefined
   );
   const Curruser = useSelector(
     (state: { userProfile: { user: userProfileState } }) =>
@@ -238,7 +238,7 @@ const Profile = () => {
   );
   const replies = useSelector(
     (state: { content: ContentsInterface }) =>
-      user && getReplies(filterByUserId(state.content, user), user)
+      user ? getReplies(filterByUserId(state.content, user), user) : undefined
   );
 
   const optionToggle = () => {
@@ -252,6 +252,7 @@ const Profile = () => {
         setUserProfile(res.data);
       });
   };
+
   useEffect(() => {
     if (user === Curruser.uid) dispatch(setLoadSelection(null));
     if (user !== Curruser.uid) getUser();
@@ -267,23 +268,13 @@ const Profile = () => {
               setFollowModal={setFollowModal}
             />
             {isPost ? (
-              posts && posts.length > 0 ? (
-                <PostsContext.Provider value={posts}>
-                  <Posts />
-                </PostsContext.Provider>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <h1 className="text-sm lg:text-xl">No post yet.</h1>
-                </div>
-              )
-            ) : replies && replies.length > 0 ? (
-              <PostsContext.Provider value={replies}>
+              <PostsContext.Provider value={posts}>
                 <Posts />
               </PostsContext.Provider>
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <h1 className="text-sm lg:text-xl">No replies yet.</h1>
-              </div>
+              <PostsContext.Provider value={replies}>
+                <Posts />
+              </PostsContext.Provider>
             )}
           </div>
           <div className="options" ref={optionsRef} onClick={optionToggle}>

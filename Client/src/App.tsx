@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import LoginCreate from "./wrappers/LoginCreateWrapper";
 import "@/styles/App.css";
@@ -20,9 +18,6 @@ const PagesRoutes = () =>
   ]);
 
 function App() {
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-  }, []);
 
   return (
     <div className="App">

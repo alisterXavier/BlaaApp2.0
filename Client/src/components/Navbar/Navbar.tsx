@@ -49,10 +49,9 @@ const Navbar = ({
   };
 
   const logOut = () => {
-    localStorage.removeItem("user");
     navigate("/");
     dispatch(init(null));
-    dispatch(resetChat(null));
+    dispatch(resetChat());
     auth.signOut();
   };
 

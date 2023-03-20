@@ -1,5 +1,3 @@
-import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
-import { BsReply } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,9 +13,8 @@ import {
 } from "../../utils/ContextApi";
 import { useContext, useEffect, useRef, useState } from "react";
 import { auth } from "../../firebase/firebase";
-import { createRippleEffect, formatDate } from "../../utils/helperFn";
-import { like, sendReply } from "../../utils/requests";
-import { toastFn } from "../../utils/Toast";
+import { createRippleEffect } from "../../utils/helperFn";
+import { sendReply } from "../../utils/requests";
 import { getPostReplies, selectById } from "../../features/ContentReducer";
 import EmojiComp from "../EmojiComp";
 import UploadImage from "../UploadImage";
@@ -28,13 +25,14 @@ import { useMobileSize, useStyle } from "../../utils/Hooks";
 import { Masonry } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Empty from "../Empty";
+import Replies from "./Replies";
+import Buttons from "../Buttons";
+import MasonryPost from "./Masonrypost";
 
 export const Posts = () => {
   const navigate = useNavigate();
   const posts = useContext(PostsContext);
-  const { replyModal, toggleReply, selectPost, setPostId } = useContext(
-    ReplyPostAndSelectPostContext
-  );
+  const { setPostId } = useContext(ReplyPostAndSelectPostContext);
   const isMobile = useMobileSize();
   const style = useStyle();
   const { setEnlargeImage } = useContext(EnlargeImage);
@@ -54,162 +52,15 @@ export const Posts = () => {
       <div className="posts">
         {posts && posts?.length > 0 ? (
           userProfile.layout === "Masonry" && !isMobile ? (
-            <Box sx={{ width: "100%", minHeight: 829 }}>
-              <Masonry columns={3} spacing={1}>
-                {posts.map((post) => {
-                  return (
-                    <div
-                      id={post.id}
-                      key={post.id}
-                      className="post flex flex-col items-start justify-between p-5"
-                      style={{
-                        border: `${style?.border}`,
-                      }}
-                      onClick={() => {
-                        setPostId(post.id);
-                        navigate(`/content=${post.id}`);
-                      }}
-                    >
-                      <div className="post-details flex items-end w-fit leading-4">
-                        <figure className="userprofile">
-                          <img src={post.userprofile}></img>
-                        </figure>
-                        <div className="text-start ml-2">
-                          <p
-                            className="post-username decoration-none"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(`/profile/${post.uid}`);
-                            }}
-                          >
-                            {post.username}
-                          </p>
-                          <p className="post-date">{post.date}</p>
-                        </div>
-                      </div>
-                      <div className="post-content w-full mt-5">
-                        {FormatContent(post.content)}
-
-                        {post.images && post.images.length > 0 && (
-                          <div className="post-content-image mt-5">
-                            {post.images?.slice(0, 4).map((image, index) => (
-                              <figure
-                                className="m-2 overflow-hidden relative"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  post.images && setEnlargeImage(post.images);
-                                }}
-                              >
-                                <img
-                                  src={image}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                  }}
-                                ></img>
-                                {post.images?.length && index === 3 && (
-                                  <div
-                                    className="more-images absolute w-full h-full flex items-center justify-center cursor-pointer"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      post.images &&
-                                        setEnlargeImage(post.images);
-                                    }}
-                                  >
-                                    <p className="">More images</p>
-                                  </div>
-                                )}
-                              </figure>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <div className="btns mt-5">
-                        <ul className="like-reply-share flex items-center">
-                          <li className="like mr-2 flex items-end">
-                            <AiOutlineHeart
-                              size={30}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.setProperty(
-                                  "--accent",
-                                  userProfile.website_accent
-                                );
-                              }}
-                              style={{
-                                color: `${
-                                  userProfile.uid &&
-                                  post?.likes?.includes(userProfile.uid)
-                                    ? userProfile.website_accent
-                                    : "white"
-                                }`,
-                              }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                like(userProfile.uid, post.id);
-                              }}
-                            />
-                            <p className="likes-count ">{post.likes?.length}</p>
-                          </li>
-                          <li className="reply flex items-end mx-2">
-                            <BsReply
-                              size={30}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.setProperty(
-                                  "--accent",
-                                  userProfile.website_accent
-                                );
-                              }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleReply();
-                                setPostId(post.id);
-                              }}
-                            />
-                            <p className="replies-count">
-                              {post.replies ? post.replies.length : 0}
-                            </p>
-                          </li>
-                          <li className="share mx-2">
-                            <AiOutlineShareAlt
-                              size={30}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.setProperty(
-                                  "--accent",
-                                  userProfile.website_accent
-                                );
-                              }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                navigator.clipboard
-                                  .writeText(
-                                    `${window.location.hostname}/api/content=${post.id}`
-                                  )
-                                  .then(
-                                    function () {
-                                      toastFn("Link copied", "200");
-                                    },
-                                    function () {
-                                      toastFn(
-                                        "Error while copying link",
-                                        "404"
-                                      );
-                                    }
-                                  );
-                              }}
-                            />
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  );
-                })}
-              </Masonry>
-            </Box>
+            <MasonryPost
+              posts={posts}
+            />
           ) : (
             posts.map((post) => {
               return (
                 <div
-                  id={post.id}
                   key={post.id}
+                  id={post.id}
                   className="post flex flex-col items-start justify-between p-5"
                   style={{
                     border: `${style?.border}`,
@@ -220,7 +71,13 @@ export const Posts = () => {
                   }}
                 >
                   <div className="post-details flex items-end w-fit leading-4">
-                    <figure className="userprofile">
+                    <figure
+                      className="userprofile"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/profile/${post.uid}`);
+                      }}
+                    >
                       <img src={post.userprofile}></img>
                     </figure>
                     <div className="text-start ml-2">
@@ -254,7 +111,8 @@ export const Posts = () => {
                               onClick={(e) => {
                                 e.preventDefault();
                               }}
-                            ></img>
+                              style={{ height: "100%" }}
+                            />
                             {post.images?.length && index === 3 && (
                               <div
                                 className="more-images flex items-center justify-center cursor-pointer"
@@ -271,79 +129,7 @@ export const Posts = () => {
                       </div>
                     )}
                   </div>
-                  <div className="btns mt-5">
-                    <ul className="like-reply-share flex items-center">
-                      <li className="like mr-2 flex items-end">
-                        <AiOutlineHeart
-                          size={30}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.setProperty(
-                              "--accent",
-                              userProfile.website_accent
-                            );
-                          }}
-                          style={{
-                            color: `${
-                              userProfile.uid &&
-                              post?.likes?.includes(userProfile.uid)
-                                ? userProfile.website_accent
-                                : "white"
-                            }`,
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            like(userProfile.uid, post.id);
-                          }}
-                        />
-                        <p className="likes-count ">{post.likes?.length}</p>
-                      </li>
-                      <li className="reply flex items-end mx-2">
-                        <BsReply
-                          size={30}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.setProperty(
-                              "--accent",
-                              userProfile.website_accent
-                            );
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleReply();
-                            setPostId(post.id);
-                          }}
-                        />
-                        <p className="replies-count">
-                          {post.replies ? post.replies.length : 0}
-                        </p>
-                      </li>
-                      <li className="share mx-2">
-                        <AiOutlineShareAlt
-                          size={30}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.setProperty(
-                              "--accent",
-                              userProfile.website_accent
-                            );
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigator.clipboard
-                              .writeText(
-                                `${window.location.hostname}/api/content=${post.id}`
-                              )
-                              .then(
-                                function () {
-                                  toastFn("Link copied", "200");
-                                },
-                                function () {
-                                  toastFn("Error while copying link", "404");
-                                }
-                              );
-                          }}
-                        />
-                      </li>
-                    </ul>
-                  </div>
+                  <Buttons post={post} />
                 </div>
               );
             })
@@ -434,13 +220,15 @@ export const Post = () => {
                       e.stopPropagation();
                       post.images && setEnlargeImage(post.images);
                     }}
+                    key={index}
                   >
                     <img
                       src={image}
                       onClick={(e) => {
                         e.preventDefault();
                       }}
-                    ></img>
+                      style={{ height: "100%" }}
+                    />
                     {post.images?.length && index === 4 && (
                       <div
                         className="more-images flex items-center justify-center cursor-pointer"
@@ -457,77 +245,7 @@ export const Post = () => {
               </div>
             )}
           </div>
-          <div className="btns mt-5">
-            <ul className="like-reply-share flex items-center">
-              <li className="like mr-2 flex items-end">
-                <AiOutlineHeart
-                  size={30}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.setProperty(
-                      "--accent",
-                      userProfile.website_accent
-                    );
-                  }}
-                  style={{
-                    color: `${
-                      userProfile.uid && post?.likes?.includes(userProfile.uid)
-                        ? userProfile.website_accent
-                        : "white"
-                    }`,
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    like(userProfile.uid, post.id);
-                  }}
-                />
-                <p className="likes-count ">{post?.likes?.length}</p>
-              </li>
-              <li
-                className="reply flex items-end mx-2"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <BsReply
-                  size={30}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.setProperty(
-                      "--accent",
-                      userProfile.website_accent
-                    );
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                />
-                <p className="replies-count">
-                  {post?.replies ? post.replies.length : 0}
-                </p>
-              </li>
-              <li className="share ml-2">
-                <AiOutlineShareAlt
-                  size={30}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.setProperty(
-                      "--accent",
-                      userProfile.website_accent
-                    );
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigator.clipboard.writeText(window.location.href).then(
-                      function () {
-                        toastFn("Link copied", "200");
-                      },
-                      function (err) {
-                        toastFn("Error while copying link", "404");
-                      }
-                    );
-                  }}
-                />
-              </li>
-            </ul>
-          </div>
+          <Buttons post={post} />
         </div>
       ) : (
         <PostSkeleton number={1} />
@@ -586,127 +304,5 @@ export const Post = () => {
     </div>
   ) : (
     <></>
-  );
-};
-
-const Replies = ({ reply }: { reply: ContentInterface }) => {
-  const navigate = useNavigate();
-  const { setPostId } = useContext(ReplyPostAndSelectPostContext);
-  const { setEnlargeImage } = useContext(EnlargeImage);
-  const userProfile = useSelector(
-    (state: { userProfile: { user: userProfileState } }) =>
-      state.userProfile.user
-  );
-  return (
-    <div
-      className="reply p-5 cursor-pointer"
-      onClick={() => {
-        setPostId(reply.id);
-        navigate(`/content=${reply.id}`);
-      }}
-      style={{ borderBottom: "1px solid" }}
-    >
-      <div className="reply-details flex items-end">
-        <figure className="userprofile">
-          <img className="" src={reply.userprofile}></img>
-        </figure>
-        <div className="text-start ml-2">
-          <a
-            href={`/profile/${reply.uid}`}
-            className="reply-username decoration-none"
-          >
-            {reply.username}
-          </a>
-          <p className="reply-date">{formatDate(reply?.date)}</p>
-        </div>
-      </div>
-      <div className="reply-content max-h-[300px] overflow-hidden flex flex-col items-start justify-start mt-5">
-        <p className="whitespace-pre-line text-left">{reply.content}</p>
-        <div className="reply-content-image flex mt-5 w-full">
-          {reply.images?.slice(0, 4).map((image, index) => (
-            <figure
-              className="m-2 overflow-hidden"
-              onClick={(e) => {
-                e.stopPropagation();
-                reply.images && setEnlargeImage(reply.images);
-              }}
-            >
-              <img
-                src={image}
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              ></img>
-              {reply.images?.length && index === 3 && (
-                <div
-                  className="more-images flex items-center justify-center cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    reply.images && setEnlargeImage(reply.images);
-                  }}
-                >
-                  <p className="">More images</p>
-                </div>
-              )}
-            </figure>
-          ))}
-        </div>
-      </div>
-      <div className="reply-btns">
-        <div className="btns mt-5">
-          <ul className="like-reply-share h-10 flex items-center">
-            <li className="like mr-2 flex items-end">
-              <AiOutlineHeart
-                size={30}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty(
-                    "--accent",
-                    userProfile.website_accent
-                  );
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  // like(userProfile.uid,reply.id)
-                }}
-              />
-              <p className="likes-count ">
-                {reply?.likes ? reply?.likes?.length : 0}
-              </p>
-            </li>
-            <li className="reply flex items-end mx-2">
-              <BsReply
-                size={30}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty(
-                    "--accent",
-                    userProfile.website_accent
-                  );
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              />
-              <p className="replies-count">
-                {reply?.replies ? reply?.replies?.length : 0}
-              </p>
-            </li>
-            <li className="share ml-2">
-              <AiOutlineShareAlt
-                size={30}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty(
-                    "--accent",
-                    userProfile.website_accent
-                  );
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
   );
 };

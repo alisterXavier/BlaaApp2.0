@@ -49,8 +49,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(setLoadSelection(null));
   }, []);
+  
   return (
-    
       <div className="content">
         <SearchContext.Provider value={{ searchContent, setSearchContent }}>
           <div className="search-box-wrapper w-full lg:w-[90%]">
