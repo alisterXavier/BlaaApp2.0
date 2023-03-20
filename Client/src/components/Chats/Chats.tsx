@@ -154,7 +154,7 @@ const Conversation = ({
           username: userProfile.username,
         },
       };
-      axios.post(`${import.meta.env.VITE_SERVER_API}/chats/text`, data).then((res) => {
+      axios.post(`${import.meta.env.VITE_SERVER_API}/chats/text`, data).then(() => {
         setContent("");
       });
     }

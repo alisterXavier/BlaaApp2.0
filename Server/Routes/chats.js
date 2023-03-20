@@ -3,11 +3,11 @@ const { FieldValue } = require("firebase-admin/firestore");
 const { db } = require("../firebase");
 const app = express();
 
-app.post("/text", (req, res) => {
+app.post("/text",async (req, res) => {
   var { uid, conversation } = req.body;
 
-  const uploadMsg = (image = undefined) => {
-    db.collection("chats")
+  const uploadMsg = async(image = undefined) => {
+    await db.collection("chats")
       .doc(uid)
       .update(
         image
@@ -24,11 +24,13 @@ app.post("/text", (req, res) => {
             }
       );
   };
+
+
   conversation.images.length > 0
-    ? conversation.images.map((image) => {
-        uploadMsg(image);
+    ? conversation.images.map(async (image) => {
+        await uploadMsg(image);
       })
-    : uploadMsg();
+    : await uploadMsg();
 
   res.sendStatus(200);
 });
