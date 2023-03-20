@@ -4,26 +4,12 @@ const app = express();
 const firebase = require("../firebase.js");
 const admin = firebase.admin;
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
 app.post("/new-post", async (req, res) => {
   const { content, uid, images, userprofile, username } = req.body;
 
   const postDoc = db.collection("posts").doc();
   const postDocuid = postDoc._path.segments[1];
+  
   await postDoc.set({
     type: "post",
     content: content,

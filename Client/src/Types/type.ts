@@ -46,10 +46,10 @@ export interface obj {
 export interface SinglePostInterface {
   selectPost: string | undefined;
   setPostId: (id: string) => void;
-  toggleReply: () => void;
   replyModal: boolean;
+  setToggleReply: (val: boolean | ((preVal: boolean) => boolean )) => void;
   postModal: boolean;
-  togglePost: () => void;
+  setTogglePost: (val: boolean | ((preVal: boolean) => boolean )) => void;
 }
 
 // StoryState

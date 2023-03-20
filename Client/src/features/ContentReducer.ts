@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ContentsInterface } from "../Types/type";
+import { ContentInterface, ContentsInterface } from "../Types/type";
 import { arraysEqual } from "../utils/helperFn";
 
-const initialState: ContentsInterface | null = [];
+const initialState: ContentsInterface | null = null;
 
 const ContentReducer = createSlice({
   name: "content",
@@ -10,7 +10,7 @@ const ContentReducer = createSlice({
   reducers: {
     setContent: (state, action) => {
       const { data } = action.payload;
-      return !arraysEqual(data, [...state]) ? [...data] : [...state]
+      return  state === null ? data : !arraysEqual(data, [...state]) ? [...data] : [...state]
     },
   },
 });

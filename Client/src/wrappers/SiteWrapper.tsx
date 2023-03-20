@@ -36,7 +36,6 @@ import Slider from "../components/Swiper";
 import SelectUser from "../components/LoginAndCreate/SelectUser";
 import {
   useMobileSize,
-  usePostToggle,
   useReplyToggle,
   useSelectPost,
 } from "../utils/Hooks";
@@ -47,8 +46,8 @@ const SiteWrapper = () => {
   const dispatch = useDispatch();
   const [enlargeImage, setEnlargeImage] = useState<Array<string>>([]);
   const [selectPost, setPostId] = useSelectPost();
-  const [postModal, togglePost] = usePostToggle();
-  const [replyModal, toggleReply] = useReplyToggle();
+  const [postModal, setTogglePost] = useState(false);
+  const [replyModal, setToggleReply] = useState(false);
   const isMobileSize = useMobileSize();
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const loading = useSelector(
@@ -165,9 +164,9 @@ const SiteWrapper = () => {
                 selectPost,
                 setPostId,
                 replyModal,
-                toggleReply,
+                setToggleReply,
                 postModal,
-                togglePost,
+                setTogglePost
               }}
             >
               {!loading && <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />}

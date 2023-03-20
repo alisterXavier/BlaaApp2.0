@@ -5,12 +5,15 @@ import { ContentInterface, userProfileState } from "../Types/type";
 import { like } from "../utils/requests";
 import { toastFn } from "../utils/Toast";
 import "@/styles/posts.css";
+import { useContext } from "react";
+import { ReplyPostAndSelectPostContext } from "../utils/ContextApi";
 
 const Buttons = ({ post }: { post: ContentInterface }) => {
   const userProfile = useSelector(
     (state: { userProfile: { user: userProfileState } }) =>
       state.userProfile.user
   );
+  const { setToggleReply, setPostId} = useContext(ReplyPostAndSelectPostContext)
   return (
     <div className="btns mt-5">
       <ul className="like-reply-share flex items-center">
@@ -53,6 +56,8 @@ const Buttons = ({ post }: { post: ContentInterface }) => {
             }}
             onClick={(e) => {
               e.stopPropagation();
+              setPostId(post.id)
+              setToggleReply(true)
             }}
           />
           <p className="replies-count">

@@ -8,13 +8,6 @@ export const useReplyToggle = () => {
   return [state, toggleReply] as const;
 };
 
-export const usePostToggle = (init = false) => {
-  const [state, setState] = useState(init);
-  const togglePost = () => setState((state) => !state);
-
-  return [state, togglePost] as const;
-};
-
 export const useSelectPost = () => {
   const [state, setState] = useState<string>();
   const setPostId = (id: string | undefined) => setState(id);

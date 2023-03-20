@@ -20,7 +20,7 @@ export const NewPost = ({
   type: string;
 }) => {
   const style = useStyle();
-  const { toggleReply, togglePost, selectPost } = useContext(
+  const { setTogglePost, setToggleReply, selectPost } = useContext(
     ReplyPostAndSelectPostContext
   );
   const selectNavOption = useContext(NavbarContext);
@@ -44,7 +44,7 @@ export const NewPost = ({
         userprofile: user.profilePicture,
         type: "post",
       };
-      togglePost();
+      setTogglePost(false);
       sendPost(data, images);
     }
   };
@@ -63,7 +63,7 @@ export const NewPost = ({
         },
         images
       );
-      toggleReply();
+      setToggleReply(false);
     }
   };
 
@@ -80,7 +80,7 @@ export const NewPost = ({
             className=""
             onClick={() => {
               selectNavOption(window.location.pathname.split("/")[1]);
-              type === "reply" ? toggleReply() : togglePost();
+              type === "reply" ? setToggleReply(false) : setTogglePost(false);
             }}
             style={{ color: `${user.website_accent}` }}
           />

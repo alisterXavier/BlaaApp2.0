@@ -28,7 +28,7 @@ const Navbar = ({
   setNavOpen: (value: boolean | ((preval: boolean) => boolean)) => void;
 }) => {
   const dispatch = useDispatch();
-  const { postModal, togglePost } = useContext(ReplyPostAndSelectPostContext);
+  const { postModal, setTogglePost } = useContext(ReplyPostAndSelectPostContext);
   const selectNavOption = useContext(NavbarContext);
   const style = useStyle();
   const navigate = useNavigate();
@@ -38,9 +38,10 @@ const Navbar = ({
       state.userProfile.user
   );
   const styles = { fill: `${userProfile.website_accent}` };
+
   const toggleNav = () => {
     setNavOpen(false);
-    postModal && togglePost();
+    postModal && setTogglePost(false);
   };
   const selectLogIn = () => {
     setTimeout(() => {
@@ -109,7 +110,7 @@ const Navbar = ({
                     id="post"
                     onClick={(e) => {
                       selectNavOption(e.currentTarget.id);
-                      togglePost();
+                      setTogglePost(true);
                       toggleNav();
                     }}
                   >
