@@ -8,6 +8,9 @@ textarea:focus {
 ::-webkit-scrollbar {
   display: none;
 }
+input{
+  background: #4a4a4a4f;
+}
 textarea {
   resize: none !important;
 }
