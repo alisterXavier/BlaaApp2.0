@@ -3,7 +3,7 @@ import { auth, storage } from "../firebase/firebase";
 import axios from "axios";
 import { handleNotLogInUserClick } from "./helperFn";
 
-// create a randomized if for images
+// create a randomized id for images
 function makeid(length) {
   var result = "";
   var characters =
