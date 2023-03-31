@@ -34,7 +34,7 @@ const Buttons = ({ post }: { post: ContentInterface }) => {
               }`,
             }}
             onClick={(e) => {
-              e.preventDefault();
+              e.stopPropagation();
               like(userProfile.uid, post.id);
             }}
           />
@@ -74,7 +74,7 @@ const Buttons = ({ post }: { post: ContentInterface }) => {
               );
             }}
             onClick={(e) => {
-              e.preventDefault();
+              e.stopPropagation();
               navigator.clipboard.writeText(window.location.href).then(
                 function () {
                   toastFn("Link copied", "200");
