@@ -179,7 +179,6 @@ export const Post = () => {
   return userProfile ? (
     <div
       className="post-wrapper flex flex-col items-start justify-start p-2 lg:p-5"
-      style={{ border: `${style?.border}` }}
     >
       <div
         className="cross"
