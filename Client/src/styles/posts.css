@@ -79,16 +79,8 @@
   font-size: 10px;
 }
 .post-wrapper {
-  position: fixed;
-  z-index: 10;
-  min-height: 300px;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  border: none !important;
-  background-color: var(--dark-bg);
+  min-height: 100vh;
+  border: none;
   overflow: scroll;
 }
 .post-wrapper .cross {

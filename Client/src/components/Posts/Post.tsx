@@ -82,7 +82,7 @@ export const Posts = () => {
                     </figure>
                     <div className="text-start ml-2">
                       <p
-                        className="post-username decoration-none"
+                        className="post-username decoration-none hover:underline cursor-pointer"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/profile/${post.uid}`);
@@ -202,7 +202,7 @@ export const Post = () => {
             <div className="text-start ml-2">
               <a
                 href={`/profile/${post?.uid}`}
-                className="post-username decoration-none"
+                className="post-username decoration-none hover:underline cursor-pointer"
               >
                 {post?.username}
               </a>

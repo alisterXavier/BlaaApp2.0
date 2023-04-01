@@ -155,12 +155,12 @@ const FollowComponent = ({
   userProfile,
   setFollowModal,
 }: {
-  userProfile: userProfileState;
+  userProfile: userProfileState | undefined;
   setFollowModal: (value: boolean | ((preVar: boolean) => boolean)) => void;
 }) => {
   const navigate = useNavigate();
-  const [display, setDisplay] = useState<Array<string | undefined>>(
-    userProfile.followers
+  const [display, setDisplay] = useState<Array<string | undefined> | undefined>(
+    userProfile && userProfile.followers
   );
   const followersRef = useRef<HTMLParagraphElement>(null);
   const followingRef = useRef<HTMLParagraphElement>(null);
@@ -170,51 +170,53 @@ const FollowComponent = ({
   };
   return (
     <div className="follow-wrapper">
-      <div className="follow p-5 relative">
-        <div className="cross w-full sticky top-0">
-          <RxCross2
-            size={30}
-            className="cursor-pointer"
-            onClick={() => setFollowModal(false)}
-          />
-        </div>
-        <div className="results-wrapper h-full p-5">
-          <div className="follow-header h-[15%] w-full flex">
-            <p
-              className="w-[50%] cursor-pointer active border-r m-2"
-              ref={followersRef}
-              onClick={() => {
-                followersRef.current?.classList.toggle("active");
-                followingRef.current?.classList.toggle("active");
-                setDisplay(userProfile.followers);
-              }}
-            >
-              Followers {userProfile.followers.length}
-            </p>
-            <p
-              className="w-[50%] cursor-pointer m-2"
-              ref={followingRef}
-              onClick={() => {
-                followersRef.current?.classList.toggle("active");
-                followingRef.current?.classList.toggle("active");
-                setDisplay(userProfile.following);
-              }}
-            >
-              Following {userProfile.following.length}
-            </p>
-            <span className="slider" style={{}}></span>
+      {userProfile && (
+        <div className="follow p-5 relative">
+          <div className="cross w-full sticky top-0">
+            <RxCross2
+              size={30}
+              className="cursor-pointer"
+              onClick={() => setFollowModal(false)}
+            />
           </div>
-          <div className="users h-[80%] flex flex-col items-center justify-start overflow-scroll">
-            {display && display.length > 0 && (
-              <Users
-                usersList={display}
-                Event={toUserProfile}
-                type={"follow"}
-              />
-            )}
+          <div className="results-wrapper h-full p-5">
+            <div className="follow-header h-[15%] w-full flex">
+              <p
+                className="w-[50%] cursor-pointer active border-r m-2"
+                ref={followersRef}
+                onClick={() => {
+                  followersRef.current?.classList.toggle("active");
+                  followingRef.current?.classList.toggle("active");
+                  setDisplay(userProfile.followers);
+                }}
+              >
+                Followers {userProfile.followers.length}
+              </p>
+              <p
+                className="w-[50%] cursor-pointer m-2"
+                ref={followingRef}
+                onClick={() => {
+                  followersRef.current?.classList.toggle("active");
+                  followingRef.current?.classList.toggle("active");
+                  setDisplay(userProfile.following);
+                }}
+              >
+                Following {userProfile.following.length}
+              </p>
+              <span className="slider" style={{}}></span>
+            </div>
+            <div className="users h-[80%] flex flex-col items-center justify-start overflow-scroll">
+              {display && display.length > 0 && (
+                <Users
+                  usersList={display}
+                  Event={toUserProfile}
+                  type={"follow"}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -228,17 +230,15 @@ const Profile = () => {
   const [userProfile, setUserProfile] = useState<userProfileState | undefined>(
     undefined
   );
-  const posts = useSelector(
-    (state: { content: ContentsInterface }) =>
-      user ? getPosts(filterByUserId(state.content, user)) : undefined
+  const posts = useSelector((state: { content: ContentsInterface }) =>
+    user ? getPosts(filterByUserId(state.content, user)) : undefined
   );
   const Curruser = useSelector(
     (state: { userProfile: { user: userProfileState } }) =>
       state.userProfile.user
   );
-  const replies = useSelector(
-    (state: { content: ContentsInterface }) =>
-      user ? getReplies(filterByUserId(state.content, user), user) : undefined
+  const replies = useSelector((state: { content: ContentsInterface }) =>
+    user ? getReplies(filterByUserId(state.content, user), user) : undefined
   );
 
   const optionToggle = () => {
@@ -257,7 +257,7 @@ const Profile = () => {
     if (user === Curruser.uid) dispatch(setLoadSelection(null));
     if (user !== Curruser.uid) getUser();
   }, [user]);
-
+  
   return (
     <>
       <div className="profile-wrapper">
@@ -307,7 +307,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      {followModal && userProfile ? (
+      {followModal ? (
         <FollowComponent
           setFollowModal={setFollowModal}
           userProfile={user === Curruser.uid ? Curruser : userProfile}

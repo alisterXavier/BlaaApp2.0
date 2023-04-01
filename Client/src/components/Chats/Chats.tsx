@@ -154,9 +154,11 @@ const Conversation = ({
           username: userProfile.username,
         },
       };
-      axios.post(`${import.meta.env.VITE_SERVER_API}/chats/text`, data).then(() => {
-        setContent("");
-      });
+      axios
+        .post(`${import.meta.env.VITE_SERVER_API}/chats/text`, data)
+        .then(() => {
+          setContent("");
+        });
     }
   };
 
@@ -167,13 +169,21 @@ const Conversation = ({
         chatId: chatConversation.chatId,
       };
       if (chatConversation.userDetails.length > 2) {
-        axios.post(`${import.meta.env.VITE_SERVER_API}/chats/exit-conversation`, data).then((res) => {
-          setChatId(undefined);
-          toastFn("Conversation deleted successfully", "succcess");
-        });
+        axios
+          .post(
+            `${import.meta.env.VITE_SERVER_API}/chats/exit-conversation`,
+            data
+          )
+          .then((res) => {
+            setChatId(undefined);
+            toastFn("Conversation deleted successfully", "succcess");
+          });
       } else if (chatConversation.userDetails.length === 2) {
         axios
-          .post(`${import.meta.env.VITE_API}/chats/delete-conversation`, data)
+          .post(
+            `${import.meta.env.VITE_SERVER_API}/chats/delete-conversation`,
+            data
+          )
           .then((res) => {
             setChatId(undefined);
             toastFn("Conversation deleted successfully", "succcess");
@@ -212,13 +222,13 @@ const Conversation = ({
               } flex flex-col`}
             >
               <div
-                className="details flex items-center justify-center"
+                className="details flex items-center justify-end"
                 onClick={(e) => {}}
               >
                 <p>Details</p>
               </div>
               <div
-                className="details"
+                className="details flex items-center justify-end"
                 onClick={(e) => {
                   setChatOptionsToggle(false);
                   navigate("/chats/send-message");
@@ -226,25 +236,18 @@ const Conversation = ({
               >
                 <p>Add to conversation</p>
               </div>
-              {chatConversation.userDetails.length > 2 ? (
-                <div
-                  className="exit"
-                  onClick={(e) => {
-                    deleteChat();
-                  }}
-                >
-                  <p>Exit group</p>
-                </div>
-              ) : (
-                <div
-                  className="delete"
-                  onClick={(e) => {
-                    deleteChat();
-                  }}
-                >
-                  <p>Delete</p>
-                </div>
-              )}
+              <div
+                className="delete flex items-center justify-end"
+                onClick={(e) => {
+                  deleteChat();
+                }}
+              >
+                <p>
+                  {chatConversation.userDetails.length > 2
+                    ? "Exit group"
+                    : "Delete"}
+                </p>
+              </div>
             </div>
           </div>
           {isMobile && (

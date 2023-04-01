@@ -29,7 +29,7 @@ const Replies = ({ reply }: { reply: ContentInterface }) => {
         <div className="text-start ml-2">
           <a
             href={`/profile/${reply.uid}`}
-            className="reply-username decoration-none"
+            className="reply-username decoration-none hover:underline cursor-pointer"
           >
             {reply.username}
           </a>

@@ -64,8 +64,8 @@ app.post("/exit-conversation", async (req, res) => {
 });
 
 app.post("/get-users", async (req, res) => {
-  const { user } = req.query;
-  const users = [];
+ const { user } = req.query;
+  const users = []; 
   await db
     .collection("users")
     .get()
